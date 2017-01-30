@@ -944,7 +944,9 @@ class Documenter(object):
         members_check_module, members = self.get_object_members(want_all)
 
         # remove members given by exclude-members
-        if self.options.exclude_members:
+        if self.options.exclude_members is ALL:
+            raise ExtensionError('exclude-members requires operand')
+        elif self.options.exclude_members:
             members = [(membername, member) for (membername, member) in members
                        if membername not in self.options.exclude_members]
 
